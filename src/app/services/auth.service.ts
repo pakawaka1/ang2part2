@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { map } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ export class AuthService {
 
   currentUser: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: Http) {
     const token = localStorage.getItem('token');
     if (token) {
       const jwt = new JwtHelper();
@@ -23,9 +23,7 @@ export class AuthService {
     return this.http.post('/api/authenticate', JSON.stringify(credentials))
     .pipe(map(response => {
       console.log(response);
-      // take a look at fake-backend to see what is being sent
       const result = response.json();
-
       if (result && result.token) {
         localStorage.setItem('token', result.token);
         const jwt = new JwtHelper();

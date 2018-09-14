@@ -35,9 +35,11 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private authService: AuthService, private router: Router ) { }
   login(credentials) {
     this.userService.login(this.authUser);
+    console.log('thisnowork');
     this.authService.login(credentials).subscribe(result => {
       if (result) {
         this.router.navigate(['/']);
+        console.log('thisnowork');
        } else {
          this.invalidLogin = true;
        }

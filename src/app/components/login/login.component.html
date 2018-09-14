@@ -1,23 +1,16 @@
 <div class="margin-body">
   <h1 class="text-center">Login</h1>
-  <form class="form-container" (ngSubmit)="login()">
-
-    <!-- Add this snippet of code-->
-    <div *ngIf='invalidLogin' class='alert alert-danger'>
-      Invalid username and password.
-    </div>
-
-
+  <form class="form-container" #f="ngForm" (ngSubmit)="login(f.value)">
     <mat-form-field>
-      <input matInput type="text" placeholder="Email"
+      <input matInput type="email" placeholder="Email"
              name="email" [errorStateMatcher]="matcher"
-             [formControl]="authUser.emailFormControl">
+             ngModel class='form-control'>
       <mat-error *ngIf="authUser.emailFormControl.hasError('email') && !authUser.emailFormControl.hasError('required')">Please enter a valid email address.</mat-error>
       <mat-error *ngIf="authUser.emailFormControl.hasError('required')">An email is required.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="authUser.password">
+      <input matInput type="password" placeholder="Password" name="password" ngModel class='form-control'>
     </mat-form-field>
-    <button mat-raised-button color="accent">Login</button>
+    <button mat-raised-button color="accent" type='submit'>Login</button>
   </form>
 </div>

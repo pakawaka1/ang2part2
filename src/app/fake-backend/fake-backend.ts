@@ -11,11 +11,13 @@ export function FakeBackendFactory(
     // We are using the setTimeout() function to simulate an
     // asynchronous call to the server that takes 1 second.
     setTimeout(() => {
+      console.log('fake-backend');
 
       // Fake implementation of /api/authenticate
       if (connection.request.url.endsWith('/api/authenticate') &&
         connection.request.method === RequestMethod.Post) {
         const body = JSON.parse(connection.request.getBody());
+        console.log('yolo');
 
         if (body.email === 'david@gmail.com' && body.password === '1234') {
           connection.mockRespond(new Response(
@@ -24,7 +26,8 @@ export function FakeBackendFactory(
               body: { token: token }
            })));
         } else {
-          connection.mockRespond(new Response(
+          console.log('broken');
+            connection.mockRespond(new Response(
             new ResponseOptions({ status: 200 })
           ));
         }
