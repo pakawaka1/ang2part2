@@ -1,6 +1,7 @@
 <div class="margin-body">
   <h1 class="text-center">Login</h1>
-  <form class="form-container" #f="ngForm" (ngSubmit)="login(f.value)">
+  <!---Here, we will give the value of our form an ID to bind to that value when we submit --->
+  <form class="form-container" #f=ngForm (ngSubmit)="login(f.value)">
     <mat-form-field>
       <input matInput type="email" placeholder="Email"
              name="email" [errorStateMatcher]="matcher"
@@ -10,7 +11,8 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput type="password" placeholder="Password" name="password" ngModel class='form-control'>
+      <!--hre, we will need to submit our form by adding the submit type for our button -->
     </mat-form-field>
-    <button mat-raised-button color="accent" type='submit'>Login</button>
+      <button mat-raised-button color="accent" type='submit'>Login</button>
   </form>
 </div>

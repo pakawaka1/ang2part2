@@ -12,7 +12,7 @@ export class LocalStorageService {
   get(key) {
     return JSON.parse(localStorage.getItem(`${this.app}${key}`));
   }
-  remove(key) {
+  removeItem(key) {
     return localStorage.removeItem(`${this.app}${key}`);
   }
 }

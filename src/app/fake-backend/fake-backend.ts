@@ -4,20 +4,20 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 export function FakeBackendFactory(
     backend: MockBackend,
     options: BaseRequestOptions) {
+      // admin token
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIENlcnZhbnRlcyIsImFkbWluIjp0cnVlfQ.-DFms3wpaFcO3b5-4Mut4d4TZoYd2z8rCA5ySmTGCxg';
+      // not admin token
+  // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRhdmlkIENlcnZhbnRlcyIsImFkbWluIjpmYWxzZX0.UcblQ6sUrzAdSoyIQwtMjun0VBznX7EieqBlCMF60oY';
 
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik1vc2ggSGFtZWRhbmkiLCJhZG1pbiI6dHJ1ZX0.iy8az1ZDe-_hS8GLDKsQKgPHvWpHl0zkQBqy1QIPOkA';
 
   backend.connections.subscribe((connection: MockConnection) => {
     // We are using the setTimeout() function to simulate an
     // asynchronous call to the server that takes 1 second.
     setTimeout(() => {
-      console.log('fake-backend');
-
       // Fake implementation of /api/authenticate
       if (connection.request.url.endsWith('/api/authenticate') &&
         connection.request.method === RequestMethod.Post) {
         const body = JSON.parse(connection.request.getBody());
-        console.log('yolo');
 
         if (body.email === 'david@gmail.com' && body.password === '1234') {
           connection.mockRespond(new Response(
@@ -26,7 +26,6 @@ export function FakeBackendFactory(
               body: { token: token }
            })));
         } else {
-          console.log('broken');
             connection.mockRespond(new Response(
             new ResponseOptions({ status: 200 })
           ));

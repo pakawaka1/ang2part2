@@ -10,11 +10,25 @@
     <mat-nav-list>
       <a mat-list-item [routerLink]="['']">Home</a>
       <a mat-list-item [routerLink]="['register']" *ngIf="!user">Register</a>
-      <a mat-list-item [routerLink]="['login']" *ngIf="!user">Login</a>
+
+
+
+      <!-- add this when we talk about showing and hiding routes -----  -->
+      <!-- <a mat-list-item [routerLink]="['admin']" *ngIf="authService.isLoggedIn()">Admin</a> -->
+
+      <!-- add this code with second conditiona when hiding routes based on user role -->
+      <a mat-list-item [routerLink]="['admin']" *ngIf="authService.isLoggedIn() && authService.currentUser.admin">Admin</a>
+
+
+
+
+      <a mat-list-item [routerLink]="['login']" *ngIf="!authService.isLoggedIn()">Login</a>
       <a mat-list-item [routerLink]="['user', user._id]" *ngIf="user">{{user.firstName}} {{user.lastName}}</a>
       <a mat-list-item [routerLink]="['users']">Users</a>
       <a mat-list-item [routerLink]="['github']">Github</a>
-      <a mat-list-item (click)="logout()" *ngIf="user">Logout</a>
+
+      <!-- add this when we talk about showing and hiding routes -->
+      <a mat-list-item (click)="authService.logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

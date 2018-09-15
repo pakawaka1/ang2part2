@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://jordomav.ngrok.io';
+  // update the apiURL as well.....
 
-  constructor(private http: HttpClient) { }
+  // private apiUrl = 'https://jordomav.ngrok.io';
+  private apiUrl = 'http://localhost:4200/api/authenticate';
+
+  constructor(private http: Http) { }
   get(url) {
     return this.http.get(`${this.apiUrl}${url}`);
   }
