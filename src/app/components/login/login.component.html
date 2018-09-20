@@ -1,8 +1,15 @@
 <div class="margin-body">
   <h1 class="text-center">Login</h1>
-  <!---Here, we will give the value of our form an ID to bind to that value when we submit --->
+
+
+
+  <!---Here, we will give the value of our form an ID to bind to that value when we submit.
+    Let us set that template variable to "f" to ngForm, and when submitting this form, we will pass f.value to our siggin method on login.component.html-->
+
+
   <form class="form-container" #f=ngForm (ngSubmit)="login(f.value)">
     <mat-form-field>
+      <div *ngIf='invalidLogin' class='alert alert-danger'>Invalid Username and/or Password</div>
       <input matInput type="email" placeholder="Email"
              name="email" [errorStateMatcher]="matcher"
              ngModel class='form-control'>
@@ -11,6 +18,8 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput type="password" placeholder="Password" name="password" ngModel class='form-control'>
+
+
       <!--hre, we will need to submit our form by adding the submit type for our button -->
     </mat-form-field>
       <button mat-raised-button color="accent" type='submit'>Login</button>

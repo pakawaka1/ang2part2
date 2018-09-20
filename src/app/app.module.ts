@@ -20,12 +20,16 @@ import { SearchPipe } from './pipes/search.pipe';
 
 
 // Imports for Lesson
-import { FakeBackendProvider } from './fake-backend/fake-backend';
+import { AuthService } from './services/auth.service';
+import { FakeBackendProvider} from './fake-backend/fake-backend';
 import { MockBackend } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions, HttpModule } from '@angular/http';
+import { AdminComponent } from './components/admin/admin.component';
+import { RouterModule } from '@angular/router';
+import { AuthGuardService } from './services/auth-guard-service';
 
 
-@NgModule({
+ @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
@@ -36,6 +40,7 @@ import { BaseRequestOptions } from '@angular/http';
     NotFoundComponent,
     GithubComponent,
     SearchPipe,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +49,7 @@ import { BaseRequestOptions } from '@angular/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -54,13 +60,27 @@ import { BaseRequestOptions } from '@angular/http';
     MatTableModule,
     MatTabsModule,
     MatCardModule,
+    // Add these routes when creating the auth guard
+    RouterModule.forRoot([
+      { path: '', component: HomeComponent },
+      { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
+      { path: 'login', component: LoginComponent },
+      { path: 'not-found', component: NotFoundComponent}
+    ])
   ],
   providers: [
-        // This is for the Lesson
-        // For creating a mock back-end. You don't need these in a real app.
-        FakeBackendProvider,
-        MockBackend,
-        BaseRequestOptions
+
+      AuthService,
+      // Add this provider for the auth guard
+      AuthGuardService,
+      // This is for the Lesson
+      // For creating a mock back-end. You don't need these in a real app.
+      FakeBackendProvider,
+      MockBackend,
+      BaseRequestOptions
+
+
+
   ],
   bootstrap: [AppComponent]
 })
